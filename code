@@ -1,0 +1,30 @@
+class MemoryItem:
+    def __init__(self, id, content, tags):
+        self.id = id
+        self.content = content
+        self.tags = tags
+
+class MemoryRepository:
+    def __init__(self):
+        self.memories = []
+
+    def add_memory(self, content, tags):
+        new_id = len(self.memories) + 1
+        memory = MemoryItem(new_id, content, tags)
+        self.memories.append(memory)
+
+    def search_memory(self, query):
+        results = []
+        for memory in self.memories:
+            if query.lower() in memory.content.lower() or query.lower() in [tag.lower() for tag in memory.tags]:
+                results.append(memory)
+        return results
+
+# Example usage
+repo = MemoryRepository()
+repo.add_memory("AI impact on education", ["AI", "education", "learning"])
+repo.add_memory("Patent application process steps", ["patent", "application"])
+search_results = repo.search_memory("AI")
+for item in search_results:
+    print(f"Memory ID: {item.id}, Content: {item.content}")
+
